@@ -16,12 +16,17 @@ func isDifferent(bs []byte) bool {
 func main() {
 	bs, _ := os.ReadFile("day6.txt")
 
-	var pos = 0
-	for i := 13; i < len(bs); i++ {
-		if isDifferent(bs[i-13 : i+1]) {
-			pos = i + 1
+	for i := 3; i < len(bs); i++ {
+		if isDifferent(bs[i-3 : i+1]) {
+			fmt.Println(i + 1)
 			break
 		}
 	}
-	fmt.Println(pos)
+
+	for i := 13; i < len(bs); i++ {
+		if isDifferent(bs[i-13 : i+1]) {
+			fmt.Println(i + 1)
+			break
+		}
+	}
 }
