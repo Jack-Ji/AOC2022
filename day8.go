@@ -76,7 +76,9 @@ func calcSceneScore(x, y int) int {
 
 	var left_score = 0
 	for i := x - 1; i >= 0; i-- {
-		left_score++
+		if grid[y][i] <= val {
+			left_score++
+		}
 		if grid[y][i] >= val {
 			break
 		}
@@ -87,7 +89,9 @@ func calcSceneScore(x, y int) int {
 
 	var right_score = 0
 	for i := x + 1; i < width; i++ {
-		right_score++
+		if grid[y][i] <= val {
+			right_score++
+		}
 		if grid[y][i] >= val {
 			break
 		}
@@ -98,7 +102,9 @@ func calcSceneScore(x, y int) int {
 
 	var up_score = 0
 	for i := y - 1; i >= 0; i-- {
-		up_score++
+		if grid[i][x] <= val {
+			up_score++
+		}
 		if grid[i][x] >= val {
 			break
 		}
@@ -109,7 +115,9 @@ func calcSceneScore(x, y int) int {
 
 	var down_score = 0
 	for i := y + 1; i < height; i++ {
-		down_score++
+		if grid[i][x] <= val {
+			down_score++
+		}
 		if grid[i][x] >= val {
 			break
 		}
