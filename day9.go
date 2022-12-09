@@ -45,20 +45,16 @@ func move(h, t *Knot) bool {
 	)
 
 	if abs(h.y-t.y) > 1 || abs(h.x-t.x) > 1 {
-		if abs(h.x-t.x) > 0 {
-			if h.x > t.x {
-				moveX = 1
-			} else {
-				moveX = -1
-			}
+		if h.x > t.x {
+			moveX = 1
+		} else if h.x < t.x {
+			moveX = -1
 		}
 
-		if abs(h.y-t.y) > 0 {
-			if h.y > t.y {
-				moveY = 1
-			} else {
-				moveY = -1
-			}
+		if h.y > t.y {
+			moveY = 1
+		} else if h.y < t.y {
+			moveY = -1
 		}
 	}
 
