@@ -32,7 +32,7 @@ func NewCPU(cs []Code) CPU {
 	}
 }
 
-func (cpu *CPU) run(cycle int) int {
+func (cpu *CPU) runCycle(cycle int) int {
 	var (
 		c           = 1
 		accumulateC = 0
@@ -117,17 +117,17 @@ func main() {
 	}
 
 	cpu := NewCPU(cs)
-	s1 := cpu.run(20)
+	s1 := cpu.runCycle(20)
 	cpu.reset()
-	s2 := cpu.run(60)
+	s2 := cpu.runCycle(60)
 	cpu.reset()
-	s3 := cpu.run(100)
+	s3 := cpu.runCycle(100)
 	cpu.reset()
-	s4 := cpu.run(140)
+	s4 := cpu.runCycle(140)
 	cpu.reset()
-	s5 := cpu.run(180)
+	s5 := cpu.runCycle(180)
 	cpu.reset()
-	s6 := cpu.run(220)
+	s6 := cpu.runCycle(220)
 	fmt.Println(s1 + s2 + s3 + s4 + s5 + s6)
 
 	cpu.reset()
