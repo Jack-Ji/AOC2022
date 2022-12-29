@@ -18,7 +18,7 @@ const (
 
 var dir Dir
 
-func (d Dir) next() Dir {
+func (d Dir) move() Dir {
 	var i = int(d)
 	i = (i + 1) % 4
 	return Dir(i)
