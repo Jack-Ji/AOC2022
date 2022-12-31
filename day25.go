@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 func pow(a, b int) int {
@@ -49,11 +50,21 @@ func decimalToSnafu(n int) []byte {
 	var (
 		size   = 1
 		result = make([]byte, 100)
+		begin  = time.Now()
 	)
 
 	result[0] = '0'
-	for n > 0 {
-		n--
+	for i := 0; i < n; i++ {
+		if i%1000000000 == 0 {
+			prog := i * 100 / n
+			if prog > 0 {
+				duration := time.Since(begin)
+				eta := time.Duration(int64(duration) * 100 / int64(prog))
+				fmt.Printf("progress: %d/%d %d%% ETA:%s\n", i, n, prog, eta)
+			} else {
+				fmt.Printf("progress: %d/%d %d%% ETA:n/a\n", i, n, prog)
+			}
+		}
 
 		var off = 0
 	LOOP:
@@ -88,6 +99,36 @@ func decimalToSnafu(n int) []byte {
 	return revert(result[:size])
 }
 
+func decimalToSnafuFast(n int) []byte {
+	var (
+		result = make([]byte, 100)
+	)
+
+	var off = 0
+	for n > 0 {
+		switch n % 5 {
+		case 0:
+			n /= 5
+			result[off] = '0'
+		case 1:
+			n /= 5
+			result[off] = '1'
+		case 2:
+			n /= 5
+			result[off] = '2'
+		case 3:
+			n = n/5 + 1
+			result[off] = '='
+		case 4:
+			n = n/5 + 1
+			result[off] = '-'
+		}
+		off++
+	}
+
+	return revert(result[:off])
+}
+
 func snafuToDecimal(s []byte) int {
 	var result int
 	for i := 0; i < len(s); i++ {
@@ -108,5 +149,5 @@ func main() {
 
 	// part1
 	fmt.Println("sum:", sum)
-	fmt.Println("SNAFU:", string(decimalToSnafu(sum)))
+	fmt.Println("SNAFU:", string(decimalToSnafuFast(sum)))
 }
